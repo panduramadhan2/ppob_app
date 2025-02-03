@@ -72,12 +72,20 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
+
 android {
     ndkVersion rootProject.ext.ndkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
     namespace "com.ppob_app"
+
+    externalNativeBuild {
+        cmake {
+            version "3.22.1"  // Change to your installed version
+        }
+    }
+
     defaultConfig {
         applicationId "com.ppob_app"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -85,6 +93,7 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
@@ -93,6 +102,7 @@ android {
             keyPassword 'android'
         }
     }
+
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
