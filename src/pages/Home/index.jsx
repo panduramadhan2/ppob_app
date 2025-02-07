@@ -27,7 +27,7 @@ import {
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {mainmenus} from '../../data/mainmenu';
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <ImageBackground
@@ -136,7 +136,8 @@ export default function HomeScreen() {
                   borderColor: isDarkMode ? SLATE_COLOR : '',
                   alignItems: 'center',
                   //   flex: 1,
-                }}>
+                }}
+                onPress={() => navigation.navigate('Pulsa')}>
                 <Image source={item.icon} />
                 <Text
                   style={{

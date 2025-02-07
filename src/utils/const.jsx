@@ -16,8 +16,10 @@ export const HORIZONTAL_MARGIN = 20;
 
 export const DARK_BACKGROUND = Colors.darker;
 export const LIGHT_BACKGROUND = Colors.lighter;
+export const WHITE_BACKGROUND = '#FFFFFF';
 
 export const LIGHT_COLOR = '#374957';
 export const DARK_COLOR = '#FFFFFF';
 export const SLATE_COLOR = '#94A3B8';
 export const BLUE_COLOR = '#138EE9';
+export const GREY_COLOR = '#d9d9d9';

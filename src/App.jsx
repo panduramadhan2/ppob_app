@@ -6,7 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MyTabBar from './components/BottomTab';
-import {HomeScreen} from './pages';
+import {HomeScreen, Pulsa} from './pages';
 
 const Tab = createBottomTabNavigator();
 
@@ -58,6 +58,11 @@ function App() {
           component={MyTabs}
           initialRouteName="MyTabs"
           options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Pulsa"
+          component={Pulsa}
+          options={{title: 'Topup Pulsa & Data'}}
         />
       </Stack.Navigator>
     </NavigationContainer>
