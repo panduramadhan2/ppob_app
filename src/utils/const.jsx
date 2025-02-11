@@ -1,5 +1,5 @@
-import {Dimensions} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import { Dimensions } from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 export const windowWidth = Dimensions.get('window').width;
 export const windowHeight = Dimensions.get('window').height;
@@ -23,3 +23,5 @@ export const DARK_COLOR = '#FFFFFF';
 export const SLATE_COLOR = '#94A3B8';
 export const BLUE_COLOR = '#138EE9';
 export const GREY_COLOR = '#d9d9d9';
+export const GREEN_COLOR = '#01C1A2';
+
