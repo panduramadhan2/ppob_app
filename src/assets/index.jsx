@@ -18,6 +18,7 @@ import HomeActive from '../assets/images/svg/home-active.svg';
 import TransaksiActive from '../assets/images/svg/transaksi-active.svg';
 import UserActive from '../assets/images/svg/user-active.svg';
 import CheckProduct from '../assets/images/svg/check.svg';
+import XClose from '../assets/images/svg/x-close.svg';
 
 export {
   HeaderBG,
@@ -37,4 +38,5 @@ export {
   TransaksiActive,
   UserActive,
   CheckProduct,
+  XClose,
 };

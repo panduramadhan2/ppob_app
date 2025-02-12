@@ -7,12 +7,13 @@ import {
   View,
   useColorScheme,
 } from 'react-native';
-import React, { useMemo, useState } from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   BLUE_COLOR,
   DARK_BACKGROUND,
   DARK_COLOR,
   FONT_NORMAL,
+  FONT_SEDANG,
   GREEN_COLOR,
   GREY_COLOR,
   HORIZONTAL_MARGIN,
@@ -23,8 +24,9 @@ import {
   WHITE_BACKGROUND,
   windowWidth,
 } from '../../utils/const';
-import { product_data, product_pulsa } from '../../data/product_pulsa';
-import { CheckProduct } from '../../assets';
+import {product_data, product_pulsa} from '../../data/product_pulsa';
+import {CheckProduct} from '../../assets';
+import BottomModal from '../../components/BottomModal';
 
 export default function Pulsa() {
   const isDarkmode = useColorScheme() === 'dark';
@@ -32,29 +34,35 @@ export default function Pulsa() {
   const [type, setType] = useState('Pulsa');
   const [selectItem, setSelectItem] = useState(null);
   const product_type = ['Pulsa', 'Data'];
+  const [showModal, setShowModal] = useState(false);
 
-  console.log('selected item : ', selectItem);
+  // console.log('selected item : ', selectItem);
 
-  console.log('Type :', type);
+  // console.log('Type :', type);
 
   return (
     <>
-
       <SafeAreaView>
-        <View style={{ marginHorizontal: HORIZONTAL_MARGIN, marginTop: 15 }}>
-          <View style={{ rowGap: 10 }}>
+        <View style={{marginHorizontal: HORIZONTAL_MARGIN, marginTop: 15}}>
+          <View style={{rowGap: 10}}>
             <TextInput
               style={{
                 borderWidth: 1,
                 borderRadius: 5,
                 borderColor: isDarkmode ? SLATE_COLOR : GREY_COLOR,
-                backgroundColor: isDarkmode ? DARK_BACKGROUND : WHITE_BACKGROUND,
+                backgroundColor: isDarkmode
+                  ? DARK_BACKGROUND
+                  : WHITE_BACKGROUND,
                 padding: 10,
                 fontFamily: REGULAR_FONT,
+                // color: isDarkmode ? '' : DARK_COLOR,
+                color: isDarkmode ? DARK_COLOR : LIGHT_COLOR,
               }}
               placeholder="Masukan nomor tujuan"
               placeholderTextColor={GREY_COLOR}
               keyboardType="numeric"
+              value={nomorTujuan}
+              onChangeText={text => setNomorTujuan(text)}
             />
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonLabel}>Tampilkan produk</Text>
@@ -74,7 +82,7 @@ export default function Pulsa() {
                   style={[
                     styles.buttonTab,
                     t === type
-                      ? { borderBottomColor: BLUE_COLOR, borderBottomWidth: 2 }
+                      ? {borderBottomColor: BLUE_COLOR, borderBottomWidth: 2}
                       : '',
                   ]}
                   onPress={() => setType(t)}>
@@ -83,8 +91,8 @@ export default function Pulsa() {
                       styles.buttonTabLabel(isDarkmode),
                       t === type
                         ? {
-                          color: BLUE_COLOR,
-                        }
+                            color: BLUE_COLOR,
+                          }
                         : '',
                     ]}>
                     {t}
@@ -108,7 +116,12 @@ export default function Pulsa() {
                   return (
                     <TouchableOpacity
                       key={p.id}
-                      style={[styles.productWrapper(isDarkmode), selectItem?.id == p.id ? { borderColor: GREEN_COLOR } : '']}
+                      style={[
+                        styles.productWrapper(isDarkmode),
+                        selectItem?.id == p.id
+                          ? {borderColor: GREEN_COLOR}
+                          : '',
+                      ]}
                       onPress={() => setSelectItem(p)}>
                       <Text style={styles.productLabel(isDarkmode)}>
                         {p.product_name}
@@ -116,10 +129,12 @@ export default function Pulsa() {
                       <Text style={styles.productPrice(isDarkmode)}>
                         {p.product_price}
                       </Text>
-                      {
-                        selectItem?.id == p.id && (<CheckProduct width={20} style={{ position: 'absolute', right: 7, top: 2 }} />)
-                      }
-
+                      {selectItem?.id == p.id && (
+                        <CheckProduct
+                          width={20}
+                          style={{position: 'absolute', right: 7, top: 2}}
+                        />
+                      )}
                     </TouchableOpacity>
                   );
                 })}
@@ -130,7 +145,12 @@ export default function Pulsa() {
                   return (
                     <TouchableOpacity
                       key={d.id}
-                      style={[styles.productWrapper(isDarkmode), selectItem?.id == d.id ? { borderColor: GREEN_COLOR } : '']}
+                      style={[
+                        styles.productWrapper(isDarkmode),
+                        selectItem?.id == d.id
+                          ? {borderColor: GREEN_COLOR}
+                          : '',
+                      ]}
                       onPress={() => setSelectItem(d)}>
                       <Text style={styles.productLabel(isDarkmode)}>
                         {d.product_name}
@@ -138,9 +158,12 @@ export default function Pulsa() {
                       <Text style={styles.productPrice(isDarkmode)}>
                         {d.product_price}
                       </Text>
-                      {
-                        selectItem?.id == d.id && (<CheckProduct width={20} style={{ position: 'absolute', right: 7, top: 2 }} />)
-                      }
+                      {selectItem?.id == d.id && (
+                        <CheckProduct
+                          width={20}
+                          style={{position: 'absolute', right: 7, top: 2}}
+                        />
+                      )}
                     </TouchableOpacity>
                   );
                 })}
@@ -149,11 +172,44 @@ export default function Pulsa() {
           </View>
         </View>
       </SafeAreaView>
-      <View style={styles.bottom(isDarkmode)}>
-        <TouchableOpacity style={styles.bottomButton}>
-          <Text style={styles.buttonLabel}>Lanjutkan</Text>
-        </TouchableOpacity>
-      </View>
+      {selectItem && (
+        <View style={styles.bottom(isDarkmode)}>
+          <TouchableOpacity
+            style={styles.bottomButton}
+            onPress={() => setShowModal(!showModal)}>
+            <Text style={styles.buttonLabel}>Lanjutkan</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+      <BottomModal
+        visible={showModal}
+        onDismiss={() => setShowModal(!showModal)}
+        title="Detail Transaksi"
+        isDarkmode>
+        <View>
+          <View style={styles.modalData(isDarkmode)}>
+            <Text style={styles.labelModalData(isDarkmode)}>Nomor Tujuan</Text>
+            <Text style={styles.valueModalData(isDarkmode)}>{nomorTujuan}</Text>
+          </View>
+          <View style={styles.modalData(isDarkmode)}>
+            <Text style={styles.labelModalData(isDarkmode)}>Produk</Text>
+            <Text style={styles.valueModalData(isDarkmode)}>
+              {selectItem?.product_name}
+            </Text>
+          </View>
+          <View style={styles.modalData(isDarkmode)}>
+            <Text style={styles.labelModalData(isDarkmode)}>Harga</Text>
+            <Text style={styles.valueModalData(isDarkmode)}>
+              {selectItem?.product_price}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.bottom(isDarkmode)}>
+          <TouchableOpacity style={styles.bottomButton}>
+            <Text style={styles.buttonLabel}>Bayar</Text>
+          </TouchableOpacity>
+        </View>
+      </BottomModal>
     </>
   );
 }
@@ -197,10 +253,34 @@ const styles = StyleSheet.create({
   productPrice: isDarkmode => ({
     fontFamily: REGULAR_FONT,
     color: isDarkmode ? DARK_COLOR : LIGHT_COLOR,
-  }), bottom: isDarkmode => ({
+  }),
+  bottom: isDarkmode => ({
     position: 'absolute',
-    bottom: 0, backgroundColor: isDarkmode ? DARK_BACKGROUND : WHITE_BACKGROUND,
-  }), bottomButton: {
+    bottom: 0,
+    right: 0,
+    left: 0,
+    backgroundColor: isDarkmode ? DARK_BACKGROUND : WHITE_BACKGROUND,
+    padding: 10,
+  }),
+  bottomButton: {
     backgroundColor: BLUE_COLOR,
-  }
+    padding: 10,
+    borderRadius: 5,
+  },
+  modalData: isDarkmode => ({
+    borderBottomWidth: 1,
+    borderBottomColor: isDarkmode ? SLATE_COLOR : GREY_COLOR,
+    paddingVertical: 5,
+    rowGap: 5,
+  }),
+  labelModalData: isDarkmode => ({
+    fontFamily: MEDIUM_FONT,
+    fontSize: FONT_SEDANG,
+    color: isDarkmode ? DARK_COLOR : LIGHT_COLOR,
+  }),
+  valueModalData: isDarkmode => ({
+    fontFamily: REGULAR_FONT,
+    fontSize: FONT_NORMAL,
+    color: isDarkmode ? DARK_COLOR : LIGHT_COLOR,
+  }),
 });
