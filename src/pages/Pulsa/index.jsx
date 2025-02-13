@@ -27,14 +27,19 @@ import {
 import {product_data, product_pulsa} from '../../data/product_pulsa';
 import {CheckProduct} from '../../assets';
 import BottomModal from '../../components/BottomModal';
+import Input from '../../components/form/Input';
 
-export default function Pulsa() {
+export default function Pulsa({navigation}) {
   const isDarkmode = useColorScheme() === 'dark';
   const [nomorTujuan, setNomorTujuan] = useState('');
   const [type, setType] = useState('Pulsa');
   const [selectItem, setSelectItem] = useState(null);
-  const product_type = ['Pulsa', 'Data'];
   const [showModal, setShowModal] = useState(false);
+  const product_type = useMemo(() => ['Pulsa', 'Data'], []);
+
+  const clearNomor = () => {
+    setNomorTujuan(null);
+  };
 
   // console.log('selected item : ', selectItem);
 
@@ -45,7 +50,7 @@ export default function Pulsa() {
       <SafeAreaView>
         <View style={{marginHorizontal: HORIZONTAL_MARGIN, marginTop: 15}}>
           <View style={{rowGap: 10}}>
-            <TextInput
+            {/* <TextInput
               style={{
                 borderWidth: 1,
                 borderRadius: 5,
@@ -63,6 +68,13 @@ export default function Pulsa() {
               keyboardType="numeric"
               value={nomorTujuan}
               onChangeText={text => setNomorTujuan(text)}
+            /> */}
+            <Input
+              value={nomorTujuan}
+              placeholder="Masukan nomor tujuan"
+              onchange={text => setNomorTujuan(text)}
+              ondelete={() => clearNomor()}
+              type="numeric"
             />
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonLabel}>Tampilkan produk</Text>
@@ -205,7 +217,14 @@ export default function Pulsa() {
           </View>
         </View>
         <View style={styles.bottom(isDarkmode)}>
-          <TouchableOpacity style={styles.bottomButton}>
+          <TouchableOpacity
+            style={styles.bottomButton}
+            onPress={() =>
+              navigation.navigate('SuccessNotif', {
+                nomor_tujuan: nomorTujuan,
+                item: selectItem,
+              })
+            }>
             <Text style={styles.buttonLabel}>Bayar</Text>
           </TouchableOpacity>
         </View>
