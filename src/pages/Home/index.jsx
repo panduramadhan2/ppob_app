@@ -137,7 +137,7 @@ export default function HomeScreen({navigation}) {
                   alignItems: 'center',
                   //   flex: 1,
                 }}
-                onPress={() => navigation.navigate('Pulsa')}>
+                onPress={() => navigation.navigate(item.path)}>
                 <Image source={item.icon} />
                 <Text
                   style={{

@@ -11,12 +11,12 @@ export const mainmenus = [
   {
     label: 'Pulsa & Data',
     icon: HandphoneIcon,
-    path: '',
+    path: 'Pulsa',
   },
   {
     label: 'PLN',
     icon: PLNIcon,
-    path: '',
+    path: 'LayananPLN',
   },
   {
     label: 'Dompet Elektronik',

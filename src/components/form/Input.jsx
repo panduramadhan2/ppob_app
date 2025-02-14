@@ -15,10 +15,18 @@ import {
   REGULAR_FONT,
   SLATE_COLOR,
   WHITE_BACKGROUND,
+  windowWidth,
 } from '../../utils/const';
 import {XClose} from '../../assets';
 
-export default function Input({value, placeholder, onchange, type, ondelete}) {
+export default function Input({
+  value,
+  placeholder,
+  onchange,
+  type,
+  ondelete,
+  lebar,
+}) {
   const isDarkmode = useColorScheme() === 'dark';
   return (
     <View
@@ -40,9 +48,9 @@ export default function Input({value, placeholder, onchange, type, ondelete}) {
         keyboardType={type ? type : 'default'}
         value={value}
         onChangeText={onchange}
-        style={{flex: 1}}
+        style={{width: lebar ? lebar : ''}}
       />
-      {value !== null && (
+      {value !== null && value !== '' && (
         <TouchableOpacity
           style={{
             position: 'absolute',

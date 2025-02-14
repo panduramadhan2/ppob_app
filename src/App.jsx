@@ -6,7 +6,14 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MyTabBar from './components/BottomTab';
-import {HomeScreen, Pulsa, SuccessNotif} from './pages';
+import {
+  HomeScreen,
+  LayananPLN,
+  PLNPascabayar,
+  PLNPrabayar,
+  Pulsa,
+  SuccessNotif,
+} from './pages';
 
 const Tab = createBottomTabNavigator();
 
@@ -63,6 +70,21 @@ function App() {
           name="Pulsa"
           component={Pulsa}
           options={{title: 'Topup Pulsa & Data'}}
+        />
+        <Stack.Screen
+          name="LayananPLN"
+          component={LayananPLN}
+          options={{title: 'Pilih Layanan PLN'}}
+        />
+        <Stack.Screen
+          name="PLNPrabayar"
+          component={PLNPrabayar}
+          options={{title: 'PLN Prabayar'}}
+        />
+        <Stack.Screen
+          name="PLNPascabayar"
+          component={PLNPascabayar}
+          options={{title: 'PLN Pascabayar'}}
         />
         <Stack.Screen
           name="SuccessNotif"
