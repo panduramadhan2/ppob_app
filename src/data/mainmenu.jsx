@@ -21,7 +21,7 @@ export const mainmenus = [
   {
     label: 'Dompet Elektronik',
     icon: DompetIcon,
-    path: '',
+    path: 'DompetElektronik',
   },
   {
     label: 'BPJS Kesehatan',

@@ -7,12 +7,14 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MyTabBar from './components/BottomTab';
 import {
+  DompetElektronik,
   HomeScreen,
   LayananPLN,
   PLNPascabayar,
   PLNPrabayar,
   Pulsa,
   SuccessNotif,
+  TopupDompet,
 } from './pages';
 
 const Tab = createBottomTabNavigator();
@@ -90,6 +92,16 @@ function App() {
           name="SuccessNotif"
           component={SuccessNotif}
           options={{title: ''}}
+        />
+        <Stack.Screen
+          name="DompetElektronik"
+          component={DompetElektronik}
+          options={{title: 'Dompet Elektronik'}}
+        />
+        <Stack.Screen
+          name="TopupDompet"
+          component={TopupDompet}
+          options={{title: 'Topup Dompet Elektronik'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

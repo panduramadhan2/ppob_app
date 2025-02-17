@@ -122,7 +122,7 @@ export default function Pulsa({navigation}) {
               rowGap: 25,
               marginTop: 20,
             }}>
-            {type == 'Pulsa' ? (
+            {type === 'Pulsa' ? (
               <>
                 {product_pulsa.map(p => {
                   return (
@@ -130,7 +130,7 @@ export default function Pulsa({navigation}) {
                       key={p.id}
                       style={[
                         styles.productWrapper(isDarkmode),
-                        selectItem?.id == p.id
+                        selectItem?.id === p.id
                           ? {borderColor: GREEN_COLOR}
                           : '',
                       ]}
@@ -141,7 +141,7 @@ export default function Pulsa({navigation}) {
                       <Text style={styles.productPrice(isDarkmode)}>
                         {p.product_price}
                       </Text>
-                      {selectItem?.id == p.id && (
+                      {selectItem?.id === p.id && (
                         <CheckProduct
                           width={20}
                           style={{position: 'absolute', right: 7, top: 2}}
@@ -159,7 +159,7 @@ export default function Pulsa({navigation}) {
                       key={d.id}
                       style={[
                         styles.productWrapper(isDarkmode),
-                        selectItem?.id == d.id
+                        selectItem?.id === d.id
                           ? {borderColor: GREEN_COLOR}
                           : '',
                       ]}
@@ -170,7 +170,7 @@ export default function Pulsa({navigation}) {
                       <Text style={styles.productPrice(isDarkmode)}>
                         {d.product_price}
                       </Text>
-                      {selectItem?.id == d.id && (
+                      {selectItem?.id === d.id && (
                         <CheckProduct
                           width={20}
                           style={{position: 'absolute', right: 7, top: 2}}

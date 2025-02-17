@@ -80,14 +80,14 @@ export default function PLNPrabayar() {
                   key={p.id}
                   style={[
                     styles.productWrapper(isDarkMode),
-                    selectItem?.id == p.id ? {borderColor: GREEN_COLOR} : '',
+                    selectItem?.id === p.id ? {borderColor: GREEN_COLOR} : '',
                   ]}
                   onPress={() => setSelectItem(p)}>
                   <Text style={styles.productLabel(isDarkMode)}>{p.label}</Text>
                   <Text style={styles.productPrice(isDarkMode)}>
                     Rp .{p.price}
                   </Text>
-                  {selectItem?.id == p.id && (
+                  {selectItem?.id === p.id && (
                     <CheckProduct
                       width={20}
                       style={{position: 'absolute', right: 7, top: 2}}
