@@ -26,16 +26,16 @@ export const mainmenus = [
   {
     label: 'BPJS Kesehatan',
     icon: BPJSIcon,
-    path: '',
+    path: 'BpjsKesehatan',
   },
   {
     label: 'PDAM',
     icon: PDAMIcon,
-    path: '',
+    path: 'PDAM',
   },
   {
     label: 'Internet',
     icon: InternetIcon,
-    path: '',
+    path: 'Internet',
   },
 ];

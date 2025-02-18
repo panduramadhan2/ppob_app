@@ -7,9 +7,12 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MyTabBar from './components/BottomTab';
 import {
+  BpjsKesehatan,
   DompetElektronik,
   HomeScreen,
+  Internet,
   LayananPLN,
+  PDAM,
   PLNPascabayar,
   PLNPrabayar,
   Pulsa,
@@ -102,6 +105,17 @@ function App() {
           name="TopupDompet"
           component={TopupDompet}
           options={{title: 'Topup Dompet Elektronik'}}
+        />
+        <Stack.Screen
+          name="BpjsKesehatan"
+          component={BpjsKesehatan}
+          options={{title: 'Bpjs Kesehatan'}}
+        />
+        <Stack.Screen name="PDAM" component={PDAM} options={{title: 'PDAM'}} />
+        <Stack.Screen
+          name="Internet"
+          component={Internet}
+          options={{title: 'Internet Pasca'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

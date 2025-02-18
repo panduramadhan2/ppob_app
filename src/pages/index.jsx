@@ -6,6 +6,9 @@ import PLNPascabayar from './Pln/pascabayar';
 import PLNPrabayar from './Pln/prabayar';
 import DompetElektronik from './Dompet_elektronik';
 import TopupDompet from './Dompet_elektronik/topupDompet';
+import BpjsKesehatan from './Bpjs';
+import PDAM from './Pdam';
+import Internet from './Internet';
 
 export {
   HomeScreen,
@@ -16,4 +19,7 @@ export {
   PLNPrabayar,
   DompetElektronik,
   TopupDompet,
+  BpjsKesehatan,
+  PDAM,
+  Internet,
 };
