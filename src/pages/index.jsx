@@ -9,6 +9,8 @@ import TopupDompet from './Dompet_elektronik/topupDompet';
 import BpjsKesehatan from './Bpjs';
 import PDAM from './Pdam';
 import Internet from './Internet';
+import LoginPage from './Auth/login';
+import RegisterPage from './Auth/register';
 
 export {
   HomeScreen,
@@ -22,4 +24,6 @@ export {
   BpjsKesehatan,
   PDAM,
   Internet,
+  LoginPage,
+  RegisterPage,
 };

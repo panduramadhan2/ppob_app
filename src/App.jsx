@@ -12,10 +12,12 @@ import {
   HomeScreen,
   Internet,
   LayananPLN,
+  LoginPage,
   PDAM,
   PLNPascabayar,
   PLNPrabayar,
   Pulsa,
+  RegisterPage,
   SuccessNotif,
   TopupDompet,
 } from './pages';
@@ -66,9 +68,19 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="My Tabs"
+          name="Login"
+          component={LoginPage}
+          initialRouteName="Login"
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Register"
+          component={RegisterPage}
+          options={{title: ''}}
+        />
+        <Stack.Screen
+          name="MyTabs"
           component={MyTabs}
-          initialRouteName="MyTabs"
           options={{headerShown: false}}
         />
         <Stack.Screen
