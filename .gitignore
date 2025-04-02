@@ -84,3 +84,4 @@ junit.xml
 !.yarn/versions
 .pnp/
 .pnp.js
+.qodo
