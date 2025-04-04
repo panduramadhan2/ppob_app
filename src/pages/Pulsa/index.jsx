@@ -1,4 +1,6 @@
 import {
+  ActivityIndicator,
+  FlatList,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -28,6 +30,8 @@ import {product_data, product_pulsa} from '../../data/product_pulsa';
 import {CheckProduct} from '../../assets';
 import BottomModal from '../../components/BottomModal';
 import Input from '../../components/form/Input';
+import {api} from '../../utils/api';
+import {numberWithCommas} from '../../utils/formatter';
 
 export default function Pulsa({navigation}) {
   const isDarkmode = useColorScheme() === 'dark';
@@ -35,10 +39,47 @@ export default function Pulsa({navigation}) {
   const [type, setType] = useState('Pulsa');
   const [selectItem, setSelectItem] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [data_pulsa, setPulsa] = useState([]);
+  const [paket_data, setPaketData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const product_type = useMemo(() => ['Pulsa', 'Data'], []);
 
   const clearNomor = () => {
     setNomorTujuan(null);
+  };
+
+  const handleProduct = async () => {
+    setLoading(true);
+    try {
+      const response = await api.post(`/api/product/get-product-pulsa`, {
+        customer_no: nomorTujuan,
+      });
+      setPulsa(response.data.data.pulsas);
+      setPaketData(response.data.data.paket_data);
+      setLoading(false);
+      console.log(response.data.data.paket_data);
+    } catch (error) {
+      setLoading(false);
+      // console.log(error);
+      console.log(error);
+    }
+  };
+
+  const handleTopup = async () => {
+    try {
+      const response = await api.post(`/api/digiflaz/topup`, {
+        customer_no: nomorTujuan,
+        sku: selectItem?.product_sku,
+      });
+      navigation.navigate('SuccessNotif', {
+        item: response.data,
+        product: selectItem,
+      });
+      console.log('response topup : ', response.data);
+    } catch (error) {
+      console.log('response error : ', error);
+    }
   };
 
   // console.log('selected item : ', selectItem);
@@ -76,9 +117,19 @@ export default function Pulsa({navigation}) {
               ondelete={() => clearNomor()}
               type="numeric"
             />
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonLabel}>Tampilkan produk</Text>
-            </TouchableOpacity>
+
+            {loading ? (
+              <View style={styles.button}>
+                <ActivityIndicator size="small" color="#fff" />
+                <Text style={styles.buttonLabel}>Loading</Text>
+              </View>
+            ) : (
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => handleProduct()}>
+                <Text style={styles.buttonLabel}>Tampilkan produk</Text>
+              </TouchableOpacity>
+            )}
           </View>
           <View
             style={{
@@ -124,7 +175,7 @@ export default function Pulsa({navigation}) {
             }}>
             {type === 'Pulsa' ? (
               <>
-                {product_pulsa.map(p => {
+                {data_pulsa.map(p => {
                   return (
                     <TouchableOpacity
                       key={p.id}
@@ -139,7 +190,7 @@ export default function Pulsa({navigation}) {
                         {p.product_name}
                       </Text>
                       <Text style={styles.productPrice(isDarkmode)}>
-                        {p.product_price}
+                        Rp.{numberWithCommas(p.product_seller_price)}
                       </Text>
                       {selectItem?.id === p.id && (
                         <CheckProduct
@@ -153,7 +204,7 @@ export default function Pulsa({navigation}) {
               </>
             ) : (
               <>
-                {product_data.map(d => {
+                {paket_data.map(d => {
                   return (
                     <TouchableOpacity
                       key={d.id}
@@ -168,7 +219,7 @@ export default function Pulsa({navigation}) {
                         {d.product_name}
                       </Text>
                       <Text style={styles.productPrice(isDarkmode)}>
-                        {d.product_price}
+                        Rp.{numberWithCommas(d.product_seller_price)}
                       </Text>
                       {selectItem?.id === d.id && (
                         <CheckProduct
@@ -182,6 +233,40 @@ export default function Pulsa({navigation}) {
               </>
             )}
           </View>
+          {/* <FlatList
+            data={type === 'Pulsa' ? data_pulsa : paket_data}
+            keyExtractor={item => item.id.toString()}
+            numColumns={2}
+            columnWrapperStyle={{
+              justifyContent: 'space-between',
+              marginBottom: 25,
+            }}
+            contentContainerStyle={{
+              marginTop: 20,
+            }}
+            renderItem={({item}) => (
+              <TouchableOpacity
+                key={item.id}
+                style={[
+                  styles.productWrapper(isDarkmode),
+                  selectItem?.id === item.id ? {borderColor: GREEN_COLOR} : '',
+                ]}
+                onPress={() => setSelectItem(item)}>
+                <Text style={styles.productLabel(isDarkmode)}>
+                  {item.product_name}
+                </Text>
+                <Text style={styles.productPrice(isDarkmode)}>
+                  Rp.{numberWithCommas(item.product_seller_price)}
+                </Text>
+                {selectItem?.id === item.id && (
+                  <CheckProduct
+                    width={20}
+                    style={{position: 'absolute', right: 7, top: 2}}
+                  />
+                )}
+              </TouchableOpacity>
+            )}
+          /> */}
         </View>
       </SafeAreaView>
       {selectItem && (
@@ -212,19 +297,14 @@ export default function Pulsa({navigation}) {
           <View style={styles.modalData(isDarkmode)}>
             <Text style={styles.labelModalData(isDarkmode)}>Harga</Text>
             <Text style={styles.valueModalData(isDarkmode)}>
-              {selectItem?.product_price}
+              Rp.{numberWithCommas(selectItem?.product_seller_price)}
             </Text>
           </View>
         </View>
         <View style={styles.bottom(isDarkmode)}>
           <TouchableOpacity
             style={styles.bottomButton}
-            onPress={() =>
-              navigation.navigate('SuccessNotif', {
-                nomor_tujuan: nomorTujuan,
-                item: selectItem,
-              })
-            }>
+            onPress={() => handleTopup()}>
             <Text style={styles.buttonLabel}>Bayar</Text>
           </TouchableOpacity>
         </View>

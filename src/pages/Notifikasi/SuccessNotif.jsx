@@ -18,7 +18,7 @@ import {
 export default function SuccessNotif({route}) {
   //   console.log(route.params);
   const isDarkmode = useColorScheme() === 'dark';
-  const {item, nomor_tujuan} = route.params;
+  const {item, product} = route.params;
 
   return (
     <View
@@ -33,32 +33,43 @@ export default function SuccessNotif({route}) {
           justifyContent: 'center',
           marginTop: 15,
         }}>
-        <AnimatedLottieView
-          source={require('../../assets/lottie/success-animation.json')}
-          autoPlay
-          loop
-        />
+        {item?.status === 'Gagal' ? (
+          <AnimatedLottieView
+            source={require('../../assets/lottie/animation_fail.json')}
+            autoPlay
+            loop
+          />
+        ) : (
+          <AnimatedLottieView
+            source={require('../../assets/lottie/success-animation.json')}
+            autoPlay
+            loop
+          />
+        )}
       </View>
+      {/* <Text>{item?.status}</Text> */}
       <View style={{marginHorizontal: HORIZONTAL_MARGIN}}>
         <View style={styles.modalData(isDarkmode)}>
           <Text style={styles.labelModalData(isDarkmode)}>Nomor Tujuan</Text>
-          <Text style={styles.valueModalData(isDarkmode)}>{nomor_tujuan}</Text>
+          <Text style={styles.valueModalData(isDarkmode)}>
+            {item?.customer_no}
+          </Text>
         </View>
         <View style={styles.modalData(isDarkmode)}>
           <Text style={styles.labelModalData(isDarkmode)}>Produk</Text>
           <Text style={styles.valueModalData(isDarkmode)}>
-            {item?.product_name}
+            {product?.product_name}
           </Text>
         </View>
         <View style={styles.modalData(isDarkmode)}>
           <Text style={styles.labelModalData(isDarkmode)}>Harga</Text>
           <Text style={styles.valueModalData(isDarkmode)}>
-            {item?.product_price}
+            {product?.product_seller_price}
           </Text>
         </View>
         <View style={styles.modalData(isDarkmode)}>
           <Text style={styles.labelModalData(isDarkmode)}>SN</Text>
-          <Text style={styles.valueModalData(isDarkmode)}>123141516784</Text>
+          <Text style={styles.valueModalData(isDarkmode)}></Text>
         </View>
       </View>
     </View>
