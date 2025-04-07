@@ -26,9 +26,17 @@ import {
 } from '../../utils/const';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {mainmenus} from '../../data/mainmenu';
+import {useAuth} from '../../context/AuthContext';
+import {useSaldo} from '../../context/SaldoContext';
+import {numberWithCommas, numberWithDots} from '../../utils/formatter';
 
 export default function HomeScreen({navigation}) {
   const isDarkMode = useColorScheme() === 'dark';
+  const {isLoggedIn} = useAuth();
+  const {saldo} = useSaldo();
+
+  console.log(saldo);
+
   return (
     <ImageBackground
       source={HeaderBG}
@@ -80,7 +88,7 @@ export default function HomeScreen({navigation}) {
             fontFamily: BOLD_FONT,
             fontSize: FONT_NORMAL,
           }}>
-          Rp 15.000
+          Rp. {numberWithDots(saldo)}
         </Text>
         <View style={{flexDirection: 'row', columnGap: 15}}>
           <TouchableOpacity
