@@ -104,7 +104,8 @@ export default function HomeScreen({navigation}) {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{flexDirection: 'column', alignItems: 'center', rowGap: 5}}>
+            style={{flexDirection: 'column', alignItems: 'center', rowGap: 5}}
+            onPress={() => navigation.navigate('TopupSaldo')}>
             <AddIcon />
             <Text
               style={{

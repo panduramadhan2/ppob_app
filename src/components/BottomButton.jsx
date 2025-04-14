@@ -21,7 +21,7 @@ export default function BottomButton({label, action, isLoading}) {
     <>
       {isLoading ? (
         <View style={styles.bottom(isDarkMode)}>
-          <View
+          <TouchableOpacity
             style={{
               backgroundColor: BLUE_COLOR,
               padding: 10,
@@ -34,7 +34,7 @@ export default function BottomButton({label, action, isLoading}) {
             onPress={action}>
             <ActivityIndicator size="small" color="#ffffff" />
             <Text style={styles.buttonText}>Loading....</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       ) : (
         <View style={styles.bottom(isDarkMode)}>

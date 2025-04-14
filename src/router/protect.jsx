@@ -17,6 +17,7 @@ import {
   Pulsa,
   SuccessNotif,
   TopupDompet,
+  TopupSaldo,
 } from '../pages';
 import MyTabBar from '../components/BottomTab';
 
@@ -114,6 +115,11 @@ function ProtectedRoute() {
         name="Internet"
         component={Internet}
         options={{title: 'Internet Pasca'}}
+      />
+      <Stack.Screen
+        name="TopupSaldo"
+        component={TopupSaldo}
+        options={{title: 'Topup Saldo'}}
       />
     </Stack.Navigator>
   );

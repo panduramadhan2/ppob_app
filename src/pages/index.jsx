@@ -11,6 +11,7 @@ import PDAM from './Pdam';
 import Internet from './Internet';
 import LoginPage from './Auth/login';
 import RegisterPage from './Auth/register';
+import TopupSaldo from './topup';
 
 export {
   HomeScreen,
@@ -26,4 +27,5 @@ export {
   Internet,
   LoginPage,
   RegisterPage,
+  TopupSaldo,
 };
